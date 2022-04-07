@@ -2,7 +2,7 @@
 I am currently employed at TCS. I have just completed my B.Tech.
 - 👀 I’m interested in Machine Learning and Blockchain.
 - 🌱 I’m currently learning Data Science related topics.
-- 💞️ I’m looking to collaborate on ...
+- 💞️ I’m looking to collaborate on Machine Learning projects involving Generative Adversarial Networks or RNNs such as BERT-Base.
 - 📫 How to reach me: https://www.linkedin.com/in/pranam-doshi-5176b7154/
 
 <!---
