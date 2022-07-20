@@ -1,7 +1,6 @@
 """
 Django Admin Customization.
 """
-from operator import imod
 from django.contrib import admin
 from django.contrib.auth.admin import UserAdmin as BaseUserAdmin
 from django.utils.translation import gettext_lazy as _
@@ -30,7 +29,8 @@ class UserAdmin(BaseUserAdmin):
     readonly_fields = ['last_login']
     add_fieldsets = (
         (None, {
-            'classes': ('wide',),#Increases the gap between labels & textfields
+            # Increases the gap between labels & textfields
+            'classes': ('wide',),
             'fields': (
                 'email',
                 'password1',
@@ -40,7 +40,7 @@ class UserAdmin(BaseUserAdmin):
                 'is_staff',
                 'is_superuser',
             )
-        }), 
+        }),
     )
 
 
