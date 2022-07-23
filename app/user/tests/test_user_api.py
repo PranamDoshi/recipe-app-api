@@ -20,7 +20,7 @@ def create_user(**params):
 
 
 class PublicUserAPITests(TestCase):
-    """Test the public fatures of the user API."""
+    """Test the public features of the user API."""
 
     def setup(self):
         self.client = APIClient()
@@ -89,7 +89,15 @@ class PublicUserAPITests(TestCase):
         """Test returns error if credential invalid."""
         create_user(email='test@example.com', password='goodpass')
 
-        payload = {'email': '', 'password': 'badpass'}
+        payload = {'email': 'test@example.com', 'password': 'badpass'}
+        res = self.client.post(TOKEN_URL, payload)
+
+        self.assertNotIn('token', res.data)
+        self.assertEqual(res.status_code, status.HTTP_400_BAD_REQUEST)
+
+    def test_create_token_email_not_found(self):
+        """Test error returned if user not found for given email."""
+        payload = {'email': 'test@example.com', 'password': 'test123'}
         res = self.client.post(TOKEN_URL, payload)
 
         self.assertNotIn('token', res.data)
@@ -138,7 +146,7 @@ class PrivateUserAPITests(TestCase):
 
     def test_post_me_not_allowed(self):
         """Test POST is not allowed for the ME endpoint."""
-        res = self.client.get(MANAGE_URL, {})
+        res = self.client.post(MANAGE_URL, {})
 
         self.assertEqual(res.status_code, status.HTTP_405_METHOD_NOT_ALLOWED)
 
