@@ -5,10 +5,11 @@ from django.contrib.auth import get_user_model
 
 from rest_framework import serializers
 
+
 # ModelSerializer is the base class for creating serializers
 class UserSerializer(serializers.ModelSerializer):
     """Serializer for the user object."""
-    
+
     # Data to be used in this serializer by rest framework
     class Meta:
         model = get_user_model()
