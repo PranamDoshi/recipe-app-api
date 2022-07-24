@@ -52,8 +52,8 @@ class Recipe(models.Model):
         settings.AUTH_USER_MODEL,
         on_delete=models.CASCADE,
     )
-    title= models.CharField(max_length=255)
-    # Text Field can store multiple lines and more characters.
+    title = models.CharField(max_length=255)
+    # Text Field can store multiple lines and more characters
     description = models.TextField(blank=True)
     time_minutes = models.IntegerField()
     price = models.DecimalField(max_digits=5, decimal_places=2)

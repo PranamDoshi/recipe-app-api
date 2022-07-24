@@ -11,7 +11,7 @@ from rest_framework.routers import DefaultRouter
 from recipe import views
 
 
-# Router is used to create urls for all the different available options 
+# Router is used to create urls for all the different available options
 # for the given viewset.
 router = DefaultRouter()
 router.register('recipes', views.RecipeViewSet)
