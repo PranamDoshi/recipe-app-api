@@ -31,22 +31,22 @@ class PublicIngredientTests(TestCase):
 
     def setUp(self):
         self.client = APIClient()
-    
+
     def test_auth_required(self):
         """Test auth is required for retrieving ingredients."""
         res = self.client.get(INGREDIENTS_URL)
 
         self.assertEqual(res.status_code, status.HTTP_401_UNAUTHORIZED)
-    
+
 
 class PrivateIngredientsTests(TestCase):
     """Test authencticated API requests."""
-    
+
     def setUp(self):
         self.user = create_user()
         self.client = APIClient()
         self.client.force_authenticate(self.user)
-    
+
     def test_retrieve_ingredients(self):
         """Test retrieving a list of ingedients."""
         Ingredients.objects.create(user=self.user, name='Kale')
@@ -59,7 +59,7 @@ class PrivateIngredientsTests(TestCase):
 
         self.assertEqual(res.status_code, status.HTTP_200_OK)
         self.assertEqual(res.data, serializer.data)
-    
+
     def test_ingredient_limited_to_user(self):
         """Test list of ingredients is limited to authenticated user."""
 
@@ -76,7 +76,7 @@ class PrivateIngredientsTests(TestCase):
 
     def test_update_ingredient(self):
         """Test updating an ingredient."""
-        ingredient = Ingredients.objects.create(user=self.user, name='Cilantro')
+        ingredient = Ingredients.objects.create(user=self.user, name='Cilant')
 
         payload = {
             "name": "Coriander"
@@ -87,3 +87,16 @@ class PrivateIngredientsTests(TestCase):
         self.assertEqual(res.status_code, status.HTTP_200_OK)
         ingredient.refresh_from_db()
         self.assertEqual(ingredient.name, payload['name'])
+
+    def test_delete_ingredients(self):
+        """Test deleting an ingredient."""
+        ingredient = Ingredients.objects.create(user=self.user, name='Lettuce')
+
+        url = detail_url(ingredient.id)
+        res = self.client.delete(url)
+
+        self.assertEqual(res.status_code, status.HTTP_204_NO_CONTENT)
+        ingredients = Ingredients.objects.filter(user=self.user)
+        self.assertFalse(ingredients.exists())
+
+    
