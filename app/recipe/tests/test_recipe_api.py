@@ -306,7 +306,9 @@ class PrivateRecipeAPITest(TestCase):
         self.assertEqual(recipes.count(), 1)
         self.assertEqual(recipes[0].ingredients.count(), 2)
         for ingredient in payload['ingredients']:
-            exists = recipes[0].ingredients.filter(name=ingredient['name']).exists()
+            exists = recipes[0].ingredients.filter(
+                name=ingredient['name']
+            ).exists()
             self.assertTrue(exists)
 
     def test_create_recipe_with_existing_ingredient(self):
@@ -316,7 +318,7 @@ class PrivateRecipeAPITest(TestCase):
             'title': 'Viatnamse Soup',
             'time_minutes': 25,
             'price': '2.55',
-            'ingredients': [{'name':'Lemon'}, {'name': 'Fish Sauce'}],
+            'ingredients': [{'name': 'Lemon'}, {'name': 'Fish Sauce'}],
         }
 
         res = self.client.post(RECIPES_URL, payload, format='json')
@@ -328,7 +330,7 @@ class PrivateRecipeAPITest(TestCase):
         self.assertIn(ingredient, recipes[0].ingredients.all())
         for ingredient in payload['ingredients']:
             exists = recipes[0].ingredients.filter(
-                name=ingredient['name'], 
+                name=ingredient['name'],
                 user=self.user,
             ).exists()
             self.assertTrue(exists)
