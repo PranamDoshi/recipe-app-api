@@ -1,4 +1,4 @@
-FROM nginxinc/nginx-unprivileged:l-apline
+FROM nginxinc/nginx-unprivileged
 LABEL maintainer="indianappdeveloper.com"
 
 COPY ./default.conf.tpl /etc/nginx/default.conf.tpl
